@@ -1,4 +1,7 @@
 #!/bin/bash
 DATE=$(date)
 
+while (/bin/true); do
 echo "NODEAPP : $DATE" 2>&1 >> /home/www/log/nodeapp.log
+sleep 10
+done
