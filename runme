@@ -1,1 +1,4 @@
-#
+#!/bin/bash
+DATE=$(date)
+
+echo "NODEAPP : $DATE" 2>&1 >> /home/www/log/nodeapp.log
