@@ -1,7 +1,9 @@
 #!/bin/bash
+COUNTER=0
 DATE=$(date)
 
 while (/bin/true); do
-echo "NODEAPP : $DATE" 2>&1 >> /home/www/log/nodeapp.log
+echo "NODEAPP runme ($COUNTER) : $DATE" 2>&1 >> /home/www/log/nodeapp.log
 sleep 1
+let COUNTER=COUNTER+1
 done
