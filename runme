@@ -3,5 +3,5 @@ PID=`ps -ef | grep node | grep "$PWD" | grep -v grep |awk '{print $2}'`
 
 for pid in $PID; do kill $pid;done
 
-[ ! -d ./node_modules ] && npm install
+[ ! -d ./node_modules ] && npm install && npm update
 NODE_ENV=development forever start $PWD/app.js

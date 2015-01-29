@@ -19,7 +19,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.set('view options', { layout: false });
 
-app.use(logger());
+app.use(logger('dev'));
 app.use(methodOverride());
 app.use(session({ resave: true, saveUninitialized: true,
                                secret: 'cobjet-secret-144' }));
