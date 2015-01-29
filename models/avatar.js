@@ -2,9 +2,9 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
-// Define our user schema
-var UserSchema = new mongoose.Schema({
-  username: {
+// Define our avatar schema
+var avatarSchema = new mongoose.Schema({
+  avatarname: {
     type: String,
     unique: true,
     required: true
@@ -15,26 +15,26 @@ var UserSchema = new mongoose.Schema({
   }
 });
 
-// Execute before each user.save() call
-UserSchema.pre('save', function(callback) {
-  var user = this;
+// Execute before each avatar.save() call
+avatarSchema.pre('save', function(callback) {
+  var avatar = this;
 
   // Break out if the password hasn't changed
-  if (!user.isModified('password')) return callback();
+  if (!avatar.isModified('password')) return callback();
 
   // Password changed so we need to hash it
   bcrypt.genSalt(5, function(err, salt) {
     if (err) return callback(err);
 
-    bcrypt.hash(user.password, salt, null, function(err, hash) {
+    bcrypt.hash(avatar.password, salt, null, function(err, hash) {
       if (err) return callback(err);
-      user.password = hash;
+      avatar.password = hash;
       callback();
     });
   });
 });
 
-UserSchema.methods.verifyPassword = function(password, cb) {
+avatarSchema.methods.verifyPassword = function(password, cb) {
   bcrypt.compare(password, this.password, function(err, isMatch) {
     if (err) return cb(err);
     cb(null, isMatch);
@@ -42,4 +42,4 @@ UserSchema.methods.verifyPassword = function(password, cb) {
 };
 
 // Export the Mongoose model
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Avatar', avatarSchema);

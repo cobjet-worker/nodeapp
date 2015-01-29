@@ -4,7 +4,7 @@ var BasicStrategy = require('passport-http').BasicStrategy;
 var DigestStrategy = require('passport-http').DigestStrategy;
 var LocalStrategy = require('passport-local').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
-var User = require('../models/user');
+var Avatar = require('../models/avatar');
 var Client = require('../models/client');
 var Token = require('../models/token');
 

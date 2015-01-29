@@ -5,14 +5,17 @@ var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var session = require('express-session');
 var passport = require('passport');
-var beerController = require('./controllers/beer');
-var userController = require('./controllers/user');
+
+var cobjetController = require('./controllers/cobjet');
+var avatarController = require('./controllers/avatar');
 var authController = require('./controllers/auth');
 var oauth2Controller = require('./controllers/oauth2');
 var clientController = require('./controllers/client');
 
-// Connect to the attributes MongoDB
-mongoose.connect('mongodb://localhost:27017/attributes');
+var expressPort = 8888;
+
+// Connect to the cobjets MongoDB
+mongoose.connect('mongodb://rw:cobjetrw@ds043947.mongolab.com:43947/dev');
 
 // Create our Express application
 var app = express();
@@ -26,8 +29,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Use express session support since OAuth2orize requires it
-app.use(session({ 
-  secret: 'Super Secret Session Key',
+app.use(session({
+  secret: 'Super-Secret-Session-Key',
   saveUninitialized: true,
   resave: true
 }));
@@ -38,21 +41,21 @@ app.use(passport.initialize());
 // Create our Express router
 var router = express.Router();
 
-// Create endpoint handlers for /beers
-router.route('/api/beers')
-  .post(authController.isAuthenticated, beerController.postBeers)
-  .get(authController.isAuthenticated, beerController.getBeers);
+// Create endpoint handlers for /cobjets
+router.route('/api/cobjets')
+  .post(authController.isAuthenticated, cobjetController.postcobjets)
+  .get(authController.isAuthenticated, cobjetController.getcobjets);
 
-// Create endpoint handlers for /beers/:beer_id
-router.route('/api/beers/:beer_id')
-  .get(authController.isAuthenticated, beerController.getBeer)
-  .put(authController.isAuthenticated, beerController.putBeer)
-  .delete(authController.isAuthenticated, beerController.deleteBeer);
+// Create endpoint handlers for /cobjets/:cobjet_id
+router.route('/api/cobjets/:cobjet_id')
+  .get(authController.isAuthenticated, cobjetController.getcobjet)
+  .put(authController.isAuthenticated, cobjetController.putcobjet)
+  .delete(authController.isAuthenticated, cobjetController.deletecobjet);
 
-// Create endpoint handlers for /users
-router.route('/api/users')
-  .post(userController.postUsers)
-  .get(authController.isAuthenticated, userController.getUsers);
+// Create endpoint handlers for /avatars
+router.route('/api/avatars')
+  .post(avatarController.postavatars)
+  .get(authController.isAuthenticated, avatarController.getavatars);
 
 // Create endpoint handlers for /clients
 router.route('/api/clients')
@@ -72,4 +75,4 @@ router.route('/api/oauth2/token')
 app.use(router);
 
 // Start the server
-app.listen(3000);
+app.listen(expressPort);
