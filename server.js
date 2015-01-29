@@ -15,7 +15,7 @@ var clientController = require('./controllers/client');
 var expressPort = 8888;
 
 // Connect to the cobjets MongoDB
-mongoose.connect('mongodb://rw:cobjetrw@ds043947.mongolab.com:43947/dev');
+mongoose.connect('mongodb://localhost:27017/dev');
 
 // Create our Express application
 var app = express();
