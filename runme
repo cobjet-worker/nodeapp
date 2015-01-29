@@ -1,2 +1,9 @@
-[ ! -d ./node_modules ] && npm install
-nodemon server.js
+export PATH="$HOME/.local/n/bin:$PATH"
+PWD=`pwd`
+PID=`ps -ef | grep node | grep "$PWD" | awk '{print $2, $3}'`
+
+for pid in $PID; do kill $pid;done
+
+[ ! -d ./node_modules ] && npm install && npm install -g forever
+
+NODE_ENV=development forever start $PWD/server.js
