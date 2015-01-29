@@ -1,5 +1,5 @@
 PWD=`pwd`
-PID=`ps -ef | grep node | grep "$PWD" | awk '{print $2, $3}'`
+PID=`ps -ef | grep node | grep "$PWD" | grep -v grep |awk '{print $2}'`
 
 for pid in $PID; do kill $pid;done
 
